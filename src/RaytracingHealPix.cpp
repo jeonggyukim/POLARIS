@@ -48,6 +48,9 @@ bool CRaytracingHealPix::setDustDetector(uint pos,
     if(dust_ray_detectors[pos + 11]>0)
         rad_bubble = dust_ray_detectors[pos + 11];
 
+    if(dust_ray_detectors[pos + 12] > 0)
+        max_ray_length = dust_ray_detectors[pos + 12];
+
     nside = uint(dust_ray_detectors[pos + NR_OF_RAY_DET - 1]);
 
     npix = 12 * nside * nside;
@@ -109,6 +112,9 @@ bool CRaytracingHealPix::setSyncDetector(uint pos,
     if(sync_ray_detectors[pos + 11]>0)
         rad_bubble = sync_ray_detectors[pos + 11];
 
+    if(sync_ray_detectors[pos + 12] > 0)
+        max_ray_length = sync_ray_detectors[pos + 12];
+
     nside = uint(sync_ray_detectors[pos + NR_OF_RAY_DET - 1]);
 
     npix = 12 * nside * nside;
@@ -163,6 +169,9 @@ bool CRaytracingHealPix::setLineDetector(uint pos,
     vx = line_ray_detectors[pos + 10];
     vy = line_ray_detectors[pos + 11];
     vz = line_ray_detectors[pos + 12];
+
+    if(line_ray_detectors[pos + 13] > 0)
+        max_ray_length = line_ray_detectors[pos + 13];
 
     nside = uint(line_ray_detectors[pos + NR_OF_LINE_DET - 2]);
     nr_spectral_bins = uint(line_ray_detectors[pos + NR_OF_LINE_DET - 1]);
@@ -260,7 +269,8 @@ void CRaytracingHealPix::preparePhoton(photon_package * pp, double cx, double cy
     tmp_ex.setY(cos(phi));
     tmp_ex.setZ(0);
 
-    start_pos += max_length * tmp_ez + det_pos;
+    double start_dist = (max_ray_length > 0) ? max_ray_length : max_length;
+    start_pos += start_dist * tmp_ez + det_pos;
 
     pp->setPosition(start_pos);
     pp->setEX(tmp_ex);

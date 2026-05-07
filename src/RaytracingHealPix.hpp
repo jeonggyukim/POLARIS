@@ -39,6 +39,8 @@ public:
         b_min = 0;
         b_max = PI;
 
+        max_ray_length = 0;
+
         grid = _grid;
     }
 
@@ -128,6 +130,10 @@ private:
 
     int nside;
     long npix;
+
+    // outer cutoff: rays start at det_pos + max_ray_length * direction
+    // instead of det_pos + max_length * direction. 0 disables the cutoff.
+    double max_ray_length;
 };
 
 #endif /* CRAYTRACING_HEALPIX_H */
