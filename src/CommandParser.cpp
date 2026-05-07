@@ -1155,7 +1155,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[4] < 0)
             values[4] += 360;
 
-        if(values.size() == NR_OF_LINE_DET - 11)
+        if(values.size() == NR_OF_LINE_DET - 12)
         {
             // Only gas_species_id, transition_id, source_id, max_velocity, rot_angle_1
             // and rot_angle_2 Set distance to 1
@@ -1171,7 +1171,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 10)
+        else if(values.size() == NR_OF_LINE_DET - 11)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1185,11 +1185,11 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 9)
+        else if(values.size() == NR_OF_LINE_DET - 10)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_LINE_DET - 10]);
+            values.push_back(values[NR_OF_LINE_DET - 11]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
@@ -1197,7 +1197,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 8)
+        else if(values.size() == NR_OF_LINE_DET - 9)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1207,7 +1207,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 6)
+        else if(values.size() == NR_OF_LINE_DET - 7)
         {
             // As above, but with x- and y-shift of the detector map
             // Do not use the other values
@@ -1216,6 +1216,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for plane)
         values.push_back(DET_PLANE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1251,7 +1252,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         formatLine(data);
         dlist values = parseValues(data);
 
-        if(values.size() == NR_OF_LINE_DET - 10)
+        if(values.size() == NR_OF_LINE_DET - 11)
         {
             // Only gas_species_id, transition_id, source_id, max_velocity, position X, Y,
             // and Z Set galactic coordinate l (Longitude) to [-180°, 180°]
@@ -1265,12 +1266,18 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 7)
+        else if(values.size() == NR_OF_LINE_DET - 8)
         {
             // As above, but with galactic coordinates
             // Set velocity of the observer to (0, 0, 0) [m/s]
             values.push_back(0.0);
             values.push_back(0.0);
+            values.push_back(0.0);
+        }
+
+        if(values.size() == NR_OF_LINE_DET - 4)
+        {
+            // max ray length from observer (0 = no limit)
             values.push_back(0.0);
         }
 
@@ -1318,7 +1325,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[4] < 0)
             values[4] += 360;
 
-        if(values.size() == NR_OF_LINE_DET - 11)
+        if(values.size() == NR_OF_LINE_DET - 12)
         {
             // Only gas_species_id, transition_id, source_id, max_velocity, rot_angle_1
             // and rot_angle_2 Set distance to 1
@@ -1334,7 +1341,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 10)
+        else if(values.size() == NR_OF_LINE_DET - 11)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1348,11 +1355,11 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 9)
+        else if(values.size() == NR_OF_LINE_DET - 10)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_LINE_DET - 10]);
+            values.push_back(values[NR_OF_LINE_DET - 11]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
@@ -1361,6 +1368,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for polar)
         values.push_back(DET_POLAR);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1401,7 +1409,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[4] < 0)
             values[4] += 360;
 
-        if(values.size() == NR_OF_LINE_DET - 11)
+        if(values.size() == NR_OF_LINE_DET - 12)
         {
             // Only gas_species_id, transition_id, source_id, max_velocity, rot_angle_1
             // and rot_angle_2 Set distance to 1
@@ -1417,7 +1425,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 10)
+        else if(values.size() == NR_OF_LINE_DET - 11)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1431,11 +1439,11 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 9)
+        else if(values.size() == NR_OF_LINE_DET - 10)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_LINE_DET - 10]);
+            values.push_back(values[NR_OF_LINE_DET - 11]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
@@ -1443,7 +1451,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 8)
+        else if(values.size() == NR_OF_LINE_DET - 9)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1453,7 +1461,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_LINE_DET - 6)
+        else if(values.size() == NR_OF_LINE_DET - 7)
         {
             // As above, but with x- and y-shift of the detector map
             // Do not use the other values
@@ -1462,6 +1470,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for slice)
         values.push_back(DET_SLICE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1501,7 +1510,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -1515,7 +1524,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1527,17 +1536,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1545,12 +1554,13 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 4)
+        else if(values.size() == NR_OF_RAY_DET - 5)
         {
             //only the bubble param
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for plane)
         values.push_back(DET_PLANE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1616,7 +1626,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         formatLine(data);
         dlist values = parseValues(data);
 
-        if(values.size() == NR_OF_RAY_DET - 8)
+        if(values.size() == NR_OF_RAY_DET - 9)
         {
             // Only wl_min, wl_max, wl_skip, source_id, position X, Y, and Z
             // Set galactic coordinate l (Longitude) to [-180°, 180°]
@@ -1629,10 +1639,16 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0);
         }
 
-        if(values.size() == NR_OF_RAY_DET - 4)
+        if(values.size() == NR_OF_RAY_DET - 5)
         {
             //bubble radius
             values.push_back(0);
+        }
+
+        if(values.size() == NR_OF_RAY_DET - 4)
+        {
+            // max ray length from observer (0 = no limit)
+            values.push_back(0.0);
         }
 
         values.push_back(DET_SPHER);
@@ -1686,7 +1702,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -1700,7 +1716,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1712,17 +1728,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1730,12 +1746,13 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 4)
+        else if(values.size() == NR_OF_RAY_DET - 5)
         {
             //only the bubble param
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for polar)
         values.push_back(DET_POLAR);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1783,7 +1800,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -1797,7 +1814,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1809,17 +1826,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1827,12 +1844,13 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 4)
+        else if(values.size() == NR_OF_RAY_DET - 5)
         {
             //only the bubble param
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for slice)
         values.push_back(DET_SLICE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -1952,7 +1970,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -1966,7 +1984,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -1978,17 +1996,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -1996,12 +2014,13 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 4)
+        else if(values.size() == NR_OF_RAY_DET - 5)
         {
             //only the bubble param
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for plane)
         values.push_back(DET_PLANE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -2050,7 +2069,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -2064,7 +2083,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -2076,17 +2095,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -2094,12 +2113,13 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 4)
+        else if(values.size() == NR_OF_RAY_DET - 5)
         {
             //only the bubble param
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for slice)
         values.push_back(DET_SLICE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -2165,7 +2185,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         formatLine(data);
         dlist values = parseValues(data);
 
-        if(values.size() == NR_OF_RAY_DET - 8)
+        if(values.size() == NR_OF_RAY_DET - 9)
         {
             // Only wl_min, wl_max, wl_skip, source_id, position X, Y, and Z
             // Set galactic coordinate l (Longitude) to [-180°, 180°]
@@ -2179,9 +2199,15 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         }
 
 
-        if(values.size() == NR_OF_RAY_DET - 4)
+        if(values.size() == NR_OF_RAY_DET - 5)
         {
             //bubble radius
+            values.push_back(0.0);
+        }
+
+        if(values.size() == NR_OF_RAY_DET - 4)
+        {
+            // max ray length from observer (0 = no limit)
             values.push_back(0.0);
         }
 
@@ -2236,7 +2262,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 9)
+        if(values.size() == NR_OF_RAY_DET - 10)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -2250,7 +2276,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -2262,17 +2288,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -2281,6 +2307,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for polar)
         values.push_back(DET_POLAR);
         if(!checkPixel(values, nr_of_pixel))
             return false;
@@ -2328,7 +2355,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
         while(values[5] < 0)
             values[5] += 360;
 
-        if(values.size() == NR_OF_RAY_DET - 8)
+        if(values.size() == NR_OF_RAY_DET - 9)
         {
             // Only wl_min, wl_max, wl_skip, source_id, rot_angle_1 and rot_angle_2
             // Set distance to 1
@@ -2342,7 +2369,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 8)
+        else if(values.size() == NR_OF_RAY_DET - 9)
         {
             // As above, but with distance to observer
             // Set sidelength in x-direction of cube sidelength
@@ -2354,17 +2381,17 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 7)
+        else if(values.size() == NR_OF_RAY_DET - 8)
         {
             // As above, but with one sidelength for both directions of cube sidelength
             // Set given sidelength also for y-direction of cube sidelength
-            values.push_back(values[NR_OF_RAY_DET - 8]);
+            values.push_back(values[NR_OF_RAY_DET - 9]);
             // Do not use the other values
             values.push_back(0.0);
             values.push_back(0.0);
             values.push_back(0.0);
         }
-        else if(values.size() == NR_OF_RAY_DET - 6)
+        else if(values.size() == NR_OF_RAY_DET - 7)
         {
             // As above, but with two sidelengths for x- and y-directions of cube
             // sidelength Do not use the other values
@@ -2373,6 +2400,7 @@ bool CCommandParser::parseLine(parameters * param, string cmd, string data, uint
             values.push_back(0.0);
         }
 
+        values.push_back(0.0); // max_ray_length (unused for slice)
         values.push_back(DET_SLICE);
         if(!checkPixel(values, nr_of_pixel))
             return false;
